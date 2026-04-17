@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manik Gupta — Mathematics & Computing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #0f0f1a;
+    --bg3: #13131f;
+    --surface: #161622;
+    --surface2: #1c1c2e;
+    --border: rgba(255,255,255,0.06);
+    --border2: rgba(255,255,255,0.12);
+    --text: #e8e8f0;
+    --muted: #7070a0;
+    --faint: #3a3a5c;
+    --accent: #a8c4f8;
+    --accent2: #6b9cf4;
+    --accent3: #c5b8ff;
+    --grid-color: rgba(100,130,255,0.04);
+    --grid-line: rgba(100,130,255,0.06);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.25rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(10,10,15,0.8);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    transition: all 0.3s;
+  }
+
+  .nav-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--accent2); }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 8rem 4rem 4rem;
+    overflow: hidden;
+  }
+
+  .hero-canvas {
+    position: absolute;
+    inset: 0;
+    opacity: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--accent2);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--accent2);
+  }
+
+  h1.hero-name {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+  }
+
+  h1.hero-name .accent-line {
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(168,196,248,0.4);
+    display: block;
+  }
+
+  .hero-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+    max-width: 480px;
+  }
+
+  .hero-tagline {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 1.4rem;
+    color: var(--accent3);
+    margin-bottom: 3rem;
+    max-width: 500px;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    padding: 0.875rem 2rem;
+    background: var(--accent2);
+    color: #040818;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+  }
+
+  .btn-primary:hover {
+    background: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    padding: 0.875rem 2rem;
+    background: transparent;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    border: 1px solid var(--faint);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--accent2);
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .hero-scroll-indicator {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    z-index: 2;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, var(--accent2), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(0.7); }
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 6rem 4rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent2);
+    letter-spacing: 0.2em;
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border2);
+    max-width: 60px;
+  }
+
+  h2.section-title {
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.85;
+    margin-bottom: 1.25rem;
+  }
+
+  .about-text p:first-child {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.2rem;
+    color: rgba(232,232,240,0.8);
+    line-height: 1.7;
+  }
+
+  .about-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    border: 1px solid var(--border2);
+  }
+
+  .stat-row {
+    padding: 1.25rem 1.5rem;
+    background: var(--surface);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.2s;
+  }
+
+  .stat-row:last-child { border-bottom: none; }
+  .stat-row:hover { background: var(--surface2); }
+
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .stat-value {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+  }
+
+  /* STRENGTHS */
+  .strengths-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    margin-top: 1rem;
+    background: var(--border);
+  }
+
+  .strength-item {
+    background: var(--surface);
+    padding: 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    transition: background 0.2s;
+  }
+
+  .strength-item:hover { background: var(--surface2); }
+
+  .strength-icon {
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--faint);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .strength-icon svg { width: 14px; height: 14px; stroke: var(--accent2); fill: none; stroke-width: 1.5; }
+
+  .strength-text {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .skill-category {
+    background: var(--surface);
+    padding: 2rem;
+    border: 1px solid var(--border);
+    transition: border-color 0.3s;
+  }
+
+  .skill-category:hover {
+    border-color: var(--border2);
+  }
+
+  .skill-cat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--accent2);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .skill-cat-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--faint);
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .skill-tag {
+    font-size: 0.875rem;
+    color: var(--text);
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: color 0.2s;
+  }
+
+  .skill-tag:last-child { border-bottom: none; }
+
+  .skill-tag::before {
+    content: '';
+    width: 4px;
+    height: 4px;
+    background: var(--accent2);
+    flex-shrink: 0;
+  }
+
+  .skill-tag:hover { color: var(--accent); }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+  }
+
+  .project-card {
+    background: var(--surface);
+    padding: 2rem;
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 2px;
+    background: linear-gradient(90deg, var(--accent2), var(--accent3));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s;
+  }
+
+  .project-card:hover::before { transform: scaleX(1); }
+  .project-card:hover { border-color: var(--border2); background: var(--surface2); transform: translateY(-2px); }
+
+  .project-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--faint);
+    letter-spacing: 0.2em;
+    margin-bottom: 1rem;
+  }
+
+  .project-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
+  }
+
+  .project-desc {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+  }
+
+  .project-desc li {
+    list-style: none;
+    padding: 3px 0;
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .project-desc li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--faint);
+    font-size: 12px;
+  }
+
+  .project-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .project-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--accent2);
+    background: rgba(107,156,244,0.08);
+    border: 1px solid rgba(107,156,244,0.15);
+    padding: 3px 10px;
+    letter-spacing: 0.08em;
+  }
+
+  .project-link {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--faint);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+
+  .project-link:hover { border-color: var(--accent2); background: rgba(107,156,244,0.1); }
+  .project-link svg { width: 12px; height: 12px; stroke: var(--muted); fill: none; stroke-width: 1.5; }
+  .project-card:hover .project-link svg { stroke: var(--accent); }
+
+  .project-status {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: #7ab87a;
+    background: rgba(122,184,122,0.08);
+    border: 1px solid rgba(122,184,122,0.15);
+    padding: 3px 10px;
+    display: inline-block;
+    margin-bottom: 0.75rem;
+  }
+
+  .project-status.wip {
+    color: #e8b86d;
+    background: rgba(232,184,109,0.08);
+    border-color: rgba(232,184,109,0.15);
+  }
+
+  /* EXPERIENCE */
+  .experience-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .experience-card::after {
+    content: 'FORGE 1.0';
+    position: absolute;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Syne', sans-serif;
+    font-size: 4rem;
+    font-weight: 800;
+    color: rgba(107,156,244,0.04);
+    letter-spacing: -0.02em;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  .exp-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    gap: 2rem;
+  }
+
+  .exp-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.25rem;
+  }
+
+  .exp-org {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--accent2);
+  }
+
+  .exp-type {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    border: 1px solid var(--faint);
+    padding: 4px 12px;
+    white-space: nowrap;
+  }
+
+  .exp-points {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .exp-points li {
+    font-size: 0.9rem;
+    color: var(--muted);
+    padding-left: 1.25rem;
+    position: relative;
+    line-height: 1.65;
+  }
+
+  .exp-points li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 11px;
+    width: 6px;
+    height: 1px;
+    background: var(--accent2);
+  }
+
+  /* EDUCATION */
+  .edu-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 2px;
+  }
+
+  .edu-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    transition: border-color 0.2s;
+  }
+
+  .edu-card:hover { border-color: var(--border2); }
+
+  .edu-level {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--accent2);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .edu-degree {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+    line-height: 1.4;
+  }
+
+  .edu-school {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+
+  .edu-score {
+    font-family: 'DM Mono', monospace;
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: var(--accent);
+  }
+
+  /* CONTACT */
+  #contact {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 6rem 4rem;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .contact-cta h2 {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+
+  .contact-cta h2 em {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    color: var(--accent3);
+  }
+
+  .contact-cta p {
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.2s;
+    gap: 1rem;
+  }
+
+  .contact-link:hover {
+    background: var(--surface2);
+    border-color: var(--border2);
+    transform: translateX(4px);
+  }
+
+  .contact-link-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .contact-link-icon {
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--faint);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .contact-link-icon svg { width: 16px; height: 16px; stroke: var(--accent2); fill: none; stroke-width: 1.5; }
+
+  .contact-link-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 2px;
+  }
+
+  .contact-link-value {
+    font-size: 0.9rem;
+    color: var(--text);
+  }
+
+  .contact-link-arrow {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+
+  .contact-link-arrow svg { width: 16px; height: 16px; stroke: var(--faint); fill: none; stroke-width: 1.5; }
+  .contact-link:hover .contact-link-arrow svg { stroke: var(--accent); }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--faint);
+  }
+
+  .footer-credit {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--faint);
+  }
+
+  /* ANIMATIONS */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Math decoration */
+  .math-decoration {
+    position: absolute;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--faint);
+    letter-spacing: 0.08em;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 2rem; }
+    .nav-links { display: none; }
+    #hero { padding: 7rem 2rem 4rem; }
+    section, #contact { padding: 4rem 2rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .edu-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .strengths-list { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 0.75rem; text-align: center; padding: 1.5rem 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo"><span>MG</span> / portfolio</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas class="hero-canvas" id="vectorCanvas"></canvas>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">Mathematics & Computing</div>
+    <h1 class="hero-name">
+      Manik
+      <span class="accent-line">Gupta</span>
+    </h1>
+    <p class="hero-title">Mathematics & Computing Undergraduate @ NIT Jalandhar<br>Software Developer</p>
+    <p class="hero-tagline">"Building systems through mathematics, logic, and code."</p>
+    <div class="hero-buttons">
+      <a href="#projects" class="btn-primary">View Projects</a>
+      <a href="#contact" class="btn-outline">Contact Me</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll-indicator">
+    <div class="scroll-line"></div>
+  </div>
+
+  <!-- Floating math -->
+  <div class="math-decoration" style="top: 18%; right: 8%; opacity: 0.5;">∇ × F = curl(F)</div>
+  <div class="math-decoration" style="top: 35%; right: 12%; opacity: 0.3;">∂u/∂t = α∇²u</div>
+  <div class="math-decoration" style="bottom: 30%; right: 6%; opacity: 0.35;">Σ f(x) dx</div>
+  <div class="math-decoration" style="top: 60%; right: 20%; opacity: 0.25;">O(n log n)</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header">
+    <span class="section-num">01 —</span>
+    <div class="section-line"></div>
+    <h2 class="section-title">About</h2>
+  </div>
+
+  <div class="about-grid reveal">
+    <div class="about-text">
+      <p>I am a Mathematics and Computing undergraduate at NIT Jalandhar with a strong foundation in analytical thinking, problem solving, and system design.</p>
+      <p>My interests lie at the intersection of mathematics, computation, and real-world applications. I enjoy breaking down complex systems into structured, logical components and building efficient solutions from first principles.</p>
+      <p>I actively explore areas such as algorithms, vector calculus, and computational modeling — particularly interested in how mathematical thinking can drive better software systems.</p>
+      <p>Beyond technical skills, I value clear communication and the ability to explain complex ideas simply — a skill that allows me to collaborate effectively and think beyond just code.</p>
+    </div>
+
+    <div>
+      <div class="about-stats">
+        <div class="stat-row">
+          <span class="stat-label">Institution</span>
+          <span class="stat-value">NIT Jalandhar</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Degree</span>
+          <span class="stat-value">B.Tech (Math & Computing)</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Focus</span>
+          <span class="stat-value">Algorithms & Systems</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Stack</span>
+          <span class="stat-value">MERN + Python</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Currently</span>
+          <span class="stat-value">Open to opportunities</span>
+        </div>
+      </div>
+
+      <div class="strengths-list" style="margin-top: 2px;">
+        <div class="strength-item">
+          <div class="strength-icon">
+            <svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
+          </div>
+          <span class="strength-text">Analytical & mathematical thinking</span>
+        </div>
+        <div class="strength-item">
+          <div class="strength-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+          </div>
+          <span class="strength-text">Fast learner, curiosity-driven</span>
+        </div>
+        <div class="strength-item">
+          <div class="strength-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <span class="strength-text">Clear communicator, explains complexity simply</span>
+        </div>
+        <div class="strength-item">
+          <div class="strength-icon">
+            <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <span class="strength-text">Calm & effective in competitive environments</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header">
+    <span class="section-num">02 —</span>
+    <div class="section-line"></div>
+    <h2 class="section-title">Skills</h2>
+  </div>
+
+  <div class="skills-grid reveal">
+    <div class="skill-category">
+      <div class="skill-cat-label">Languages</div>
+      <div class="skill-tags">
+        <div class="skill-tag">Python</div>
+        <div class="skill-tag">JavaScript</div>
+        <div class="skill-tag">C</div>
+        <div class="skill-tag">HTML / CSS</div>
+      </div>
+    </div>
+    <div class="skill-category">
+      <div class="skill-cat-label">Core Concepts</div>
+      <div class="skill-tags">
+        <div class="skill-tag">Data Structures & Algorithms</div>
+        <div class="skill-tag">Mathematical Thinking</div>
+        <div class="skill-tag">Linear Algebra</div>
+        <div class="skill-tag">Vector Calculus</div>
+        <div class="skill-tag">Computational Modeling</div>
+      </div>
+    </div>
+    <div class="skill-category">
+      <div class="skill-cat-label">Technologies</div>
+      <div class="skill-tags">
+        <div class="skill-tag">MongoDB, Express, React, Node</div>
+        <div class="skill-tag">Git & GitHub</div>
+        <div class="skill-tag">CLI Tools & Automation</div>
+        <div class="skill-tag">Matplotlib / Manim</div>
+        <div class="skill-tag">REST APIs</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header">
+    <span class="section-num">03 —</span>
+    <div class="section-line"></div>
+    <h2 class="section-title">Projects</h2>
+  </div>
+
+  <div class="projects-grid reveal">
+
+    <!-- Task on Time -->
+    <div class="project-card" onclick="window.open('https://manikgupta07.github.io/Task-on-Time/', '_blank')">
+      <a href="https://manikgupta07.github.io/Task-on-Time/" target="_blank" class="project-link" onclick="event.stopPropagation()">
+        <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </a>
+      <div class="project-num">PROJECT / 01</div>
+      <span class="project-status">Live</span>
+      <div class="project-title">Task on Time</div>
+      <ul class="project-desc">
+        <li>Responsive task management web application</li>
+        <li>Clean UI focused on usability and daily workflow</li>
+        <li>Demonstrates front-end development & practical problem solving</li>
+      </ul>
+      <div class="project-tags">
+        <span class="project-tag">HTML/CSS</span>
+        <span class="project-tag">JavaScript</span>
+        <span class="project-tag">Frontend</span>
+      </div>
+    </div>
+
+    <!-- Manik CLI -->
+    <div class="project-card">
+      <div class="project-num">PROJECT / 02</div>
+      <span class="project-status">Completed</span>
+      <div class="project-title">Manik CLI</div>
+      <ul class="project-desc">
+        <li>Custom command-line interface for automating repetitive tasks</li>
+        <li>Designed for efficiency and developer productivity</li>
+        <li>Showcases system-level thinking and scripting ability</li>
+      </ul>
+      <div class="project-tags">
+        <span class="project-tag">Python</span>
+        <span class="project-tag">CLI</span>
+        <span class="project-tag">Automation</span>
+      </div>
+    </div>
+
+    <!-- Image Compressor -->
+    <div class="project-card">
+      <div class="project-num">PROJECT / 03</div>
+      <span class="project-status wip">In Progress</span>
+      <div class="project-title">Python Image Compressor</div>
+      <ul class="project-desc">
+        <li>Image compression tool using Python</li>
+        <li>Optimizing size vs quality trade-offs algorithmically</li>
+        <li>Demonstrates understanding of algorithms and performance</li>
+      </ul>
+      <div class="project-tags">
+        <span class="project-tag">Python</span>
+        <span class="project-tag">Algorithms</span>
+        <span class="project-tag">Image Processing</span>
+      </div>
+    </div>
+
+    <!-- Vector Field Viz -->
+    <div class="project-card">
+      <div class="project-num">PROJECT / 04</div>
+      <span class="project-status">Completed</span>
+      <div class="project-title">Vector Field Visualization</div>
+      <ul class="project-desc">
+        <li>Mathematical visualizations using Python (Manim)</li>
+        <li>Explores divergence, curl, and vector field behavior</li>
+        <li>Bridges mathematics and programming visually</li>
+      </ul>
+      <div class="project-tags">
+        <span class="project-tag">Python</span>
+        <span class="project-tag">Manim</span>
+        <span class="project-tag">Math Viz</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header">
+    <span class="section-num">04 —</span>
+    <div class="section-line"></div>
+    <h2 class="section-title">Experience</h2>
+  </div>
+
+  <div class="experience-card reveal">
+    <div class="exp-header">
+      <div>
+        <div class="exp-title">FORGE 1.0 Buildathon</div>
+        <div class="exp-org">NIT Jalandhar</div>
+      </div>
+      <div class="exp-type">Hackathon / Innovation</div>
+    </div>
+    <ul class="exp-points">
+      <li>Worked on building automated systems to improve campus workflows</li>
+      <li>Focused on efficiency, scalability, and real-world usability</li>
+      <li>Collaborated in a high-pressure, innovation-driven environment</li>
+    </ul>
+  </div>
+
+  <!-- Education inline -->
+  <div style="margin-top: 4rem;">
+    <div class="section-header" style="margin-bottom: 2rem;">
+      <span class="section-num" style="font-size: 10px; letter-spacing: 0.15em; color: var(--muted);">Education</span>
+      <div class="section-line" style="background: var(--border);"></div>
+    </div>
+    <div class="edu-grid reveal">
+      <div class="edu-card">
+        <div class="edu-level">Undergraduate</div>
+        <div class="edu-degree">B.Tech — Mathematics & Computing</div>
+        <div class="edu-school">National Institute of Technology, Jalandhar</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-level">Class 12</div>
+        <div class="edu-degree">Higher Secondary</div>
+        <div class="edu-school">Board Examination</div>
+        <div class="edu-score">91.2%</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-level">Class 10</div>
+        <div class="edu-degree">Secondary</div>
+        <div class="edu-school">Board Examination</div>
+        <div class="edu-score">94.6%</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid reveal">
+    <div class="contact-cta">
+      <h2>Let's build something <em>meaningful</em></h2>
+      <p style="margin-top: 1rem;">Open to internships, collaborative projects, and conversations about mathematics, systems, and code.</p>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:manikg743@gmail.com" class="contact-link">
+        <div class="contact-link-left">
+          <div class="contact-link-icon">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div>
+            <div class="contact-link-label">Email</div>
+            <div class="contact-link-value">manikg743@gmail.com</div>
+          </div>
+        </div>
+        <div class="contact-link-arrow">
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </div>
+      </a>
+      <a href="https://github.com/manikgupta07" target="_blank" class="contact-link">
+        <div class="contact-link-left">
+          <div class="contact-link-icon">
+            <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          </div>
+          <div>
+            <div class="contact-link-label">GitHub</div>
+            <div class="contact-link-value">ManikGupta07</div>
+          </div>
+        </div>
+        <div class="contact-link-arrow">
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </div>
+      </a>
+      <a href="https://www.linkedin.com/in/manik-gupta-ba7062386/" class="contact-link" target="_blank">
+        <div class="contact-link-left">
+          <div class="contact-link-icon">
+            <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </div>
+          <div>
+            <div class="contact-link-label">LinkedIn</div>
+            <div class="contact-link-value"> Manik Gupta
+</div>
+          </div>
+        </div>
+        <div class="contact-link-arrow">
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">MG © 2025</span>
+  <span class="footer-credit">Mathematics & Computing — NIT Jalandhar</span>
+</footer>
+
+<script>
+/* Vector field canvas animation */
+const canvas = document.getElementById('vectorCanvas');
+const ctx = canvas.getContext('2d');
+let W, H, t = 0;
+
+function resize() {
+  W = canvas.width = canvas.offsetWidth;
+  H = canvas.height = canvas.offsetHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+function drawGrid() {
+  ctx.clearRect(0,0,W,H);
+  const spacing = 48;
+  const cols = Math.ceil(W/spacing) + 2;
+  const rows = Math.ceil(H/spacing) + 2;
+
+  for(let i = -1; i < cols; i++) {
+    for(let j = -1; j < rows; j++) {
+      const x = i * spacing;
+      const y = j * spacing;
+
+      /* Vector field: swirling + wave */
+      const nx = x/W - 0.5;
+      const ny = y/H - 0.5;
+      const angle = Math.atan2(ny, nx) + t * 0.4 + Math.sin(nx * 6 + t) * 0.4;
+      const mag = Math.sqrt(nx*nx + ny*ny);
+      const len = 14 * (0.4 + 0.6 * mag);
+
+      const ex = x + Math.cos(angle) * len;
+      const ey = y + Math.sin(angle) * len;
+
+      const alpha = 0.06 + 0.04 * Math.sin(i*0.7 + j*0.5 + t);
+
+      /* Arrow line */
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.lineTo(ex, ey);
+      ctx.strokeStyle = `rgba(107,156,244,${alpha})`;
+      ctx.lineWidth = 0.7;
+      ctx.stroke();
+
+      /* Arrow head */
+      const headLen = 4;
+      const hAngle = Math.atan2(ey - y, ex - x);
+      ctx.beginPath();
+      ctx.moveTo(ex, ey);
+      ctx.lineTo(ex - headLen * Math.cos(hAngle - 0.5), ey - headLen * Math.sin(hAngle - 0.5));
+      ctx.moveTo(ex, ey);
+      ctx.lineTo(ex - headLen * Math.cos(hAngle + 0.5), ey - headLen * Math.sin(hAngle + 0.5));
+      ctx.strokeStyle = `rgba(168,196,248,${alpha * 1.5})`;
+      ctx.lineWidth = 0.8;
+      ctx.stroke();
+
+      /* Grid dots */
+      ctx.beginPath();
+      ctx.arc(x, y, 1, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(107,156,244,${alpha * 0.8})`;
+      ctx.fill();
+    }
+  }
+
+  t += 0.008;
+  requestAnimationFrame(drawGrid);
+}
+drawGrid();
+
+/* Reveal on scroll */
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if(entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+    }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(el => observer.observe(el));
+
+/* Nav scroll effect */
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('nav');
+  if(window.scrollY > 60) {
+    nav.style.borderBottomColor = 'rgba(255,255,255,0.08)';
+  } else {
+    nav.style.borderBottomColor = '';
+  }
+});
+</script>
+</body>
+</html>
